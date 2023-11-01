@@ -43,6 +43,13 @@ app.use(likeRoute);
 app.use(authRoute);
 // app.use(answerRoute);
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Serve the React app's 'index.html' for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
