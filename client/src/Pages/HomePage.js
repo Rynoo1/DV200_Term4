@@ -36,7 +36,6 @@ function HomePage() {
     const [searchT, setSearchT] = useState(false);
     const [searchR, setSearchR] = useState();
 
-
     useEffect(() => {
         if (axiosCall.startsWith('https://opendevweb-51212536012a.herokuapp.com/api/question_get_all')) {
             Axios.get(axiosCall)
