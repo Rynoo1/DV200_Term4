@@ -1,0 +1,17 @@
+{
+    "name": "opendev",
+    "version": "1.0.0",
+    "description": "OpenDev Web forum application",
+    "scripts": {
+      "start": "node index.js",
+      "client-install": "cd client && npm install",
+      "client-build": "cd client && npm run build"
+    },
+    "dependencies": {
+      "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+  }
+  
