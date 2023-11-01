@@ -21,9 +21,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+// app.use(cors({
+//     origin: 'http://localhost:3000'
+// }));
 
 // TODO Allows you to access images in the public folder
 //app.use(express.static(path.join(__dirname, 'images')));
