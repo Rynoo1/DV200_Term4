@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "OpenDev Web forum application",
     "scripts": {
-      "start": "node index.js",
+      "start": "node server/index.js",
       "client-install": "cd client && npm install",
       "client-build": "cd client && npm run build"
     },
