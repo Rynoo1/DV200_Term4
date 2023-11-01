@@ -43,11 +43,11 @@ app.use(likeRoute);
 app.use(authRoute);
 // app.use(answerRoute);
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Serve the React app's 'index.html' for all routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 mongoose.connect(process.env.DB_CONNECTION, {
@@ -59,6 +59,6 @@ mongoose.connect(process.env.DB_CONNECTION, {
         console.log("No Connection. Reason: " + err);
     });
 
-const PORT = process.env.PORT || 5003;
+const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => { console.log(`Server has started at port: ${PORT}`) });
