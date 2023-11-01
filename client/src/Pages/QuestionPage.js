@@ -72,7 +72,7 @@ function QuestionPage() {
         }
 
         try {
-            Axios.get("http://localhost:5002/api/GetUserID/" + usermail)
+            Axios.get("https://opendevweb-51212536012a.herokuapp.com/api/GetUserID/" + usermail)
                 .then((res) => {
                     const response = res;
                     setId(response.data[0]._id);
@@ -86,7 +86,7 @@ function QuestionPage() {
         }
 
         // Get all likes
-        Axios.get('http://localhost:5002/api/like_get_all/')
+        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/like_get_all/')
             .then((res) => {
                 // --Set the likes to a variable to see which questions this user has liked. 
                 // --This prevents the same person from liking the same post more than once.
@@ -122,7 +122,7 @@ function QuestionPage() {
                     addLike(1);
 
                     // Axios post to add another like to the database
-                    let url = "http://localhost:5002/api/like_add/";
+                    let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_add/";
                     let data = {
                         userID: USER,
                         questionID: questionID,
@@ -136,7 +136,7 @@ function QuestionPage() {
                     // If the user has already liked the post, delete the entry
 
                     // Build the url and the data
-                    let url = "http://localhost:5002/api/like_delete/" + likeID;
+                    let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_delete/" + likeID;
 
                     // Delete the entry to unlike the post
                     Axios.delete(url).catch("Error deleting");
@@ -152,7 +152,7 @@ function QuestionPage() {
                     try {
 
                         // Build the url and the data
-                        let url = "http://localhost:5002/api/like_update/" + likeID;
+                        let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_update/" + likeID;
                         let updata = {
                             userID: USER,
                             questionID: questionID,
@@ -196,7 +196,7 @@ function QuestionPage() {
         }
 
         try {
-            Axios.get("http://localhost:5002/api/GetUserID/" + usermail)
+            Axios.get("https://opendevweb-51212536012a.herokuapp.com/api/GetUserID/" + usermail)
                 .then((res) => {
                     const response = res;
                     setId(response.data[0]._id);
@@ -208,7 +208,7 @@ function QuestionPage() {
         }
 
         // Get all dislikes
-        Axios.get('http://localhost:5002/api/like_get_all/')
+        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/like_get_all/')
             .then((res) => {
                 let questions = res.data;
 
@@ -239,7 +239,7 @@ function QuestionPage() {
                     addDislike(1);
 
                     // Axios post to add another like to the database
-                    let url = "http://localhost:5002/api/like_add/";
+                    let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_add/";
                     let data = {
                         userID: USER,
                         questionID: questionID,
@@ -253,7 +253,7 @@ function QuestionPage() {
                     // If the user has already disliked the post, delete the entry
 
                     // Build the url and the data
-                    let url = "http://localhost:5002/api/like_delete/" + likeID;
+                    let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_delete/" + likeID;
 
                     // Delete the entry to unlike the post
                     Axios.delete(url).catch("Error deleting");
@@ -269,7 +269,7 @@ function QuestionPage() {
                     try {
 
                         // Build the url and the data
-                        let url = "http://localhost:5002/api/like_update/" + likeID;
+                        let url = "https://opendevweb-51212536012a.herokuapp.com/api/like_update/" + likeID;
                         let updata = {
                             userID: USER,
                             questionID: questionID,
@@ -298,7 +298,7 @@ function QuestionPage() {
     }
 
     const handleDelete = async () => {
-        let url = 'http://localhost:5002/api/question_get_single/' + questionID;
+        let url = 'https://opendevweb-51212536012a.herokuapp.com/api/question_get_single/' + questionID;
 
         Axios.get(url).then(res => {
             let FoundUser = res.data.user;
@@ -308,7 +308,7 @@ function QuestionPage() {
 
                 if (window.confirm('Are you sure you want to delete this question? This cannot be undone.') === true) {
                     // Build the url and the data
-                    let url = "http://localhost:5002/api/question_delete/" + questionID;
+                    let url = "https://opendevweb-51212536012a.herokuapp.com/api/question_delete/" + questionID;
 
                     // Delete the entry to unlike the post
                     Axios.delete(url)
@@ -333,7 +333,7 @@ function QuestionPage() {
 
     useEffect(() => {
         // Fetch the question
-        Axios.get(`http://localhost:5002/api/question_get_single/${questionID}`)
+        Axios.get(`https://opendevweb-51212536012a.herokuapp.com/api/question_get_single/${questionID}`)
             .then((result) => {
                 setQuestion(result.data);
                 // console.log(result.data);
@@ -345,10 +345,10 @@ function QuestionPage() {
                 }
 
                 // Fetch the question asking user
-                Axios.get(`http://localhost:5002/api/getUser/${result.data.user}`)
+                Axios.get(`https://opendevweb-51212536012a.herokuapp.com/api/getUser/${result.data.user}`)
                     .then((userResult) => {
                         setUsername(userResult.data.username);
-                        const serverURLUser = 'http://localhost:5002/userImages';
+                        const serverURLUser = 'https://opendevweb-51212536012a.herokuapp.com/userImages';
                         setUserImage(`${serverURLUser}/${userResult.data.image}`);
                         console.log('User Image: ' + userImage);
                         console.log(userResult.data.image);
@@ -367,7 +367,7 @@ function QuestionPage() {
                     setAnswers(true)
                 }
 
-                Axios.get('http://localhost:5002/api/like_get_all/')
+                Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/like_get_all/')
                     .then((res) => {
                         // --Gather all liked questions and set them to the variable here
                         let questions = res.data;
@@ -410,14 +410,14 @@ function QuestionPage() {
 
                 const usermail = sessionStorage.getItem('useremail');
                 if (usermail) {
-                    Axios.get("http://localhost:5002/api/GetUserID/" + usermail)
+                    Axios.get("https://opendevweb-51212536012a.herokuapp.com/api/GetUserID/" + usermail)
                         .then((response) => {
                             setId(response.data[0]._id);
                             setLogged(true);
                             const spid = response.data[0]._id;
 
                             // Now that we have the user's ID, check for admin status and show the delete button if applicable
-                            Axios.get('http://localhost:5002/api/question_get_single/' + questionID)
+                            Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/question_get_single/' + questionID)
                                 .then((res) => {
                                     const FoundUser = res.data.user;
                                     console.log(FoundUser);
@@ -473,7 +473,7 @@ function QuestionPage() {
 
     }, []);
 
-    const serverURL = 'http://localhost:5002/images';
+    const serverURL = 'https://opendevweb-51212536012a.herokuapp.com/images';
     const imageURL = `${serverURL}/${question.image}`;
 
     // answer question
@@ -514,7 +514,7 @@ function QuestionPage() {
                 // const userID = res.data[0]._id;
                 // console.log(res.data);
 
-                let urlGet = 'http://localhost:5002/api/question_get_single/' + questionID;
+                let urlGet = 'https://opendevweb-51212536012a.herokuapp.com/api/question_get_single/' + questionID;
 
                 const response = await Axios.get(urlGet);
                 const Comments = response.data.comments;
@@ -540,7 +540,7 @@ function QuestionPage() {
                     comments: Comments
                 }
 
-                let url = 'http://localhost:5002/api/question/' + questionID;
+                let url = 'https://opendevweb-51212536012a.herokuapp.com/api/question/' + questionID;
                 const result = await Axios.put(url, payload);
                 window.location.reload(false);
             }

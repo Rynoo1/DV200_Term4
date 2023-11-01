@@ -30,7 +30,7 @@ const AskedQuestionsCard = (props) => {
 
     useEffect(() => {
 
-        Axios.get('http://localhost:5002/api/like_get_all/')
+        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/like_get_all/')
             .then((res) => {
                 // --Gather all liked questions and set them to the variable here
                 let questions = res.data;

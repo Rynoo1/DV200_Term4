@@ -59,7 +59,7 @@ function Profile() {
     useEffect(() => {
         console.log(userID)
 
-        axios.get('http://localhost:5002/api/userquestions/' + userID)
+        axios.get('https://opendevweb-51212536012a.herokuapp.com/api/userquestions/' + userID)
             .then((result) => {
                 const data = result.data;
                 console.log(data)
@@ -80,7 +80,7 @@ function Profile() {
         const fetchData = async () => {
             console.log('fetch');
             try {
-                const userResponse = await axios.get('http://localhost:5002/api/getUser/' + userID);
+                const userResponse = await axios.get('https://opendevweb-51212536012a.herokuapp.com/api/getUser/' + userID);
                 console.log(userResponse.data.email);
                 let info = userResponse.data;
                 setProfile(<ProfileCard username={info.username} id={info._id} image={info.image} />);
@@ -110,7 +110,7 @@ function Profile() {
         updateUser.append('details', JSON.stringify(details));
         updateUser.append('imageUp', image);
 
-        axios.put('http://localhost:5002/api/updateuser/' + userID, updateUser)
+        axios.put('https://opendevweb-51212536012a.herokuapp.com/api/updateuser/' + userID, updateUser)
             .then(() => {
                 document.getElementById("default").style.display = 'block';
                 document.getElementById("update-user-profile").style.display = 'none';

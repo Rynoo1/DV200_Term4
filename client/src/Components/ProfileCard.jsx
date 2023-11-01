@@ -45,7 +45,7 @@ const ProfileCard = (props) => {
         document.getElementById("default").style.display = 'none'
         document.getElementById("update-user-profile").style.display = 'block'
     }
-    const serverURL = 'http://localhost:5002/userImages';
+    const serverURL = 'https://opendevweb-51212536012a.herokuapp.com/api/userImages';
     const imageURL = `${serverURL}/${props.image}`;
 
     // total likes and dislikes
@@ -62,7 +62,7 @@ const ProfileCard = (props) => {
 
     useEffect(() => {
 
-        Axios.get('http://localhost:5002/api/like_get_all/')
+        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/like_get_all/')
             .then((res) => {
                 // --Gather all liked questions and set them to the variable here
                 let questions = res.data;
