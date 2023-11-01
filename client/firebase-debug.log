@@ -1,0 +1,30 @@
+[debug] [2023-11-01T11:45:52.418Z] ----------------------------------------------------------------------
+[debug] [2023-11-01T11:45:52.420Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2023-11-01T11:45:52.420Z] CLI Version:   12.8.0
+[debug] [2023-11-01T11:45:52.420Z] Platform:      darwin
+[debug] [2023-11-01T11:45:52.421Z] Node Version:  v18.17.0
+[debug] [2023-11-01T11:45:52.428Z] Time:          Wed Nov 01 2023 13:45:52 GMT+0200 (GMT+02:00)
+[debug] [2023-11-01T11:45:52.428Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-11-01T11:45:52.482Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-11-01T11:45:52.482Z] > authorizing via signed-in user (221361@virtualwindow.co.za)
+[debug] [2023-11-01T11:45:52.482Z] [iam] checking project opendev-f795e for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-11-01T11:45:52.483Z] > refreshing access token with scopes: []
+[debug] [2023-11-01T11:45:52.484Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-11-01T11:45:52.485Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-11-01T11:45:52.955Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-11-01T11:45:52.955Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-11-01T11:45:52.968Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/opendev-f795e:testIamPermissions [none]
+[debug] [2023-11-01T11:45:52.968Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/opendev-f795e:testIamPermissions x-goog-quota-user=projects/opendev-f795e
+[debug] [2023-11-01T11:45:52.968Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/opendev-f795e:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-11-01T11:45:54.624Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/opendev-f795e:testIamPermissions 200
+[debug] [2023-11-01T11:45:54.624Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/opendev-f795e:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-11-01T11:45:54.626Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/opendev-f795e [none]
+[debug] [2023-11-01T11:45:55.221Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/opendev-f795e 200
+[debug] [2023-11-01T11:45:55.221Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/opendev-f795e {"projectId":"opendev-f795e","projectNumber":"509142816656","displayName":"opendev","name":"projects/opendev-f795e","resources":{"hostingSite":"opendev-f795e"},"state":"ACTIVE","etag":"1_86e20707-8d1e-4b37-a073-8d26702bc7c5"}
+[info] 
+[info] === Deploying to 'opendev-f795e'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-11-01T11:45:55.226Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/opendev-t4/versions [none]
+[debug] [2023-11-01T11:45:55.226Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/opendev-t4/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
