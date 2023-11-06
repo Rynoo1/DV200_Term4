@@ -175,213 +175,246 @@ try {
 
 2. Register Users
 * If a user signs up, and their data is validated, they will be taken to the SignIn.js page. The data is validated in the same manner as the sign in functionality, and the data is saved to the database with an `axios.post` call.
-`const handleSubmit = async (e) => {`
-`    e.preventDefault();`
-`    try {`
-`        const url = 'http://localhost:5002/api/createUser';`
-`        const { data: res } = await Axios.post(url, data);`
-`        console.log(res.message);`
-`        window.location = '/SignIn';`
-`    } catch (error) {`
-`        if (error.response && error.response.status >= 400 && error.response.status <= 500) {`
-`        const errorData = error.response.data;`
-`        setErrors({`
-`                username: errorData.username ? errorData.username : 'User name already exists!',`
-`                email: errorData.email ? errorData.email : 'Email belongs to an existing account!',`
-`                password: errorData.password ? errorData.password : '',`
-`});}}};`
+```js
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const url = 'http://localhost:5002/api/createUser';
+        const { data: res } = await Axios.post(url, data);
+        console.log(res.message);
+        window.location = '/SignIn';
+    } catch (error) {
+        if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+        const errorData = error.response.data;
+        setErrors({
+          username: errorData.username ? errorData.username : 'User name already exists!',
+          email: errorData.email ? errorData.email : 'Email belongs to an existing account!',
+          password: errorData.password ? errorData.password : '',
+});}}};
+```
 
 3. Log Out Users
 * When the Sign Out option is clicked on the Navbar.jsx component, SessionStorage will be cleared and the relevant useState will be updated to change the navbar appearance to remove options that logged out users would not require.
-`const handleSignOut = () => {`
-`    sessionStorage.clear();`
-`    setIsLoggedIn(false);`
-`}`
+```js
+const handleSignOut = () => {
+    sessionStorage.clear();
+    setIsLoggedIn(false);
+}
+```
 
 4. Protect Users using BCrypt
 * When the user registers, the bcrypt password is generated. Using SALT, a random value is added to the end of the encrypted password to further encrypt it. After the SALT is generated, the password is Hashed.
-`const salt = await bcrypt.genSalt(Number(process.env.SALT));`
-`const hashPassword = await bcrypt.hash(req.body.password, salt);`
+```js
+const salt = await bcrypt.genSalt(Number(process.env.SALT));
+
+const hashPassword = await bcrypt.hash(req.body.password, salt);
+```
 * When the user logs in, because the password is encrypted, it is tested using `bcrypt.compare()`.
-`const validPassword = await bcrypt.compare(`
-`    req.body.password,`
-`    user2.password`
-`)`
+```js
+const validPassword = await bcrypt.compare(
+    req.body.password,
+    user2.password
+)
+```
 
 5. Questions - Post
 * If the `<input>` tags are empty, the `axios.post` will not occur. It is linked to a function that is called whenever the submit button is clicked.
-`const addQuestion = (e) => {`
-`    if (title === '' && content === '') {...} `
-`    else if (content === '') {...} `
-`    else if (title === '') {...} `
+```js
+const addQuestion = (e) => {
+    if (title === '' && content === '') {...} 
+    else if (content === '') {...} 
+    else if (title === '') {...} 
+```
 * If the content and title is entered, generate a payload that will be sent to the database. Because of how `Multer` uploads images, the data must be saved to `FormData` and turned into a string with `JSON.stringify()`. Finally, the image is appended at the end and the payload is sent.
-`else if (title && content) {`
-`    setTitleAlert(false);`
-`    setContentAlert(false);`
-`    const payload = new FormData()`
-`    let data = {`
-`        id: id,`
-`        title: title,`
-`        text: content,`
-`        date: formatDate,`
-`        comments: '',`
-`    }`
-`    console.log(data);`
-`    payload.append('data', JSON.stringify(data));`
-`    payload.append('image', Image);`
-`    Axios.post('http://localhost:5002/api/addquestion', payload).then(`
-`        (response) => {`
-`            console.log(response);  `      
-`            const queryParams = new URLSearchParams();`
-`            queryParams.append('id', response.data._id);`
-`            navigate('/question?${queryParams.toString()}');`
-`        },(error) => {`
-`            console.log(error);`
-`            setErrorMessage(<ErrorCard code={error.response.status} text={error.response.statusText} />);`
-`            setErrorS(true);`
-`})`
-`console.log(payload)`
-`}}`
+```js
+else if (title && content) {
+    setTitleAlert(false);
+    setContentAlert(false);
+    const payload = new FormData()
+    let data = {
+        id: id,
+        title: title,
+        text: content,
+        date: formatDate,
+        comments: '',
+    }
+    console.log(data);
+    payload.append('data', JSON.stringify(data));
+    payload.append('image', Image);
+    Axios.post('http://localhost:5002/api/addquestion', payload).then(
+        (response) => {
+            console.log(response);       
+            const queryParams = new URLSearchParams();
+            queryParams.append('id', response.data._id);
+            navigate('/question?${queryParams.toString()}');
+        },(error) => {
+            console.log(error);
+            setErrorMessage(<ErrorCard code={error.response.status} text={error.response.statusText} />);
+            setErrorS(true);
+})
+console.log(payload)
+}}
+```
 
 6. Questions - Answer
 * The answer is added by clicking on the button to reveal the `<input>` tags. If the user is not logged in, they will be taken to the SignIn.js page.
-`const addAnswer = async () => {`
-`    if (logged) {`
-`    try {if (Id === null) {`
-`        window.location = '/signin'`
-`    } else {`
+```js
+const addAnswer = async () => {
+    if (logged) {
+    try {if (Id === null) {
+        window.location = '/signin'
+    } else {
+```
 * The question that is currently displayed will be found and the new data will be saved to an object. Because, in the questions.js model, the comments are an array of objects. 
 * The new comment is saved into the object and added to the Payload, which is the data gathered from the question that is currently displayed. The userID is also saved, as it is taken from SessionStorage.
 * Finally, the payload is sent to the server with an `axios.post` call. When the answer has been added, the window will reload to display the new data.
-`    let urlGet = 'http://localhost:5002/api/question_get_single/' + questionID;`
-`    const response = await Axios.get(urlGet);`
-`    const Comments = response.data.comments;`
-`    let push = {`
-`        user: Id,`
-`        title: AnswerTitle,`
-`        text: AnswerText`
-`    }`
-`        Comments.push(push);`
-`        const userData = response.data.user;`
-`        const title = response.data.title;`
-`        const text = response.data.text;`
-`        const date = response.data.date;`
-`        let payload = {`
-`            user: userData,`
-`            title: title,`
-`            text: text,`
-`            date: date,`
-`            comments: Comments`
-`        }`
-`            let url = 'http://localhost:5002/api/question/' + questionID;`
-`            const result = await Axios.put(url, payload);`
-`            window.location.reload(false);`
+```js
+    let urlGet = 'http://localhost:5002/api/question_get_single/' + questionID;
+    const response = await Axios.get(urlGet);
+    const Comments = response.data.comments;
+    let push = {
+        user: Id,
+        title: AnswerTitle,
+        text: AnswerText
+    }
+        Comments.push(push);
+        const userData = response.data.user;
+        const title = response.data.title;
+        const text = response.data.text;
+        const date = response.data.date;
+        let payload = {
+            user: userData,
+            title: title,
+            text: text,
+            date: date,
+            comments: Comments
+        }
+            let url = 'http://localhost:5002/api/question/' + questionID;
+            const result = await Axios.put(url, payload);
+            window.location.reload(false);
+```
 
 7. Upvote and Downvote Questions
 * The downvote function is the upvote function, which I will describe, but reversed.
 * First, the user that is currently logged in is found through the users.js route. This route sends the email, which is saved to SessionStorage, to find the ID of the user. 
-`const handleLike = async () => {`
-`    // Find who is currently logged in `
-`    let usermail = sessionStorage.getItem('useremail');`
-`    // If the usermail is not set to session storage yet, exit the like function`
-`    if (usermail === null || usermail === undefined) {return;}`
-`    try {Axios.get("http://localhost:5002/api/GetUserID/" + usermail)`
-`    .then((res) => {`
-`        const response = res;`
-`        setId(response.data[0]._id);`
-`        console.log(response.data[0]._id);`
-`        console.log(Id);`
-`    })`
+```js
+const handleLike = async () => {
+    // Find who is currently logged in 
+    let usermail = sessionStorage.getItem('useremail');
+    // If the usermail is not set to session storage yet, exit the like function
+    if (usermail === null || usermail === undefined) {return;}
+    try {Axios.get("http://localhost:5002/api/GetUserID/" + usermail)
+    .then((res) => {
+        const response = res;
+        setId(response.data[0]._id);
+        console.log(response.data[0]._id);
+        console.log(Id);
+    })
+```
+
 * Get all the likes (or dislikes) to test if the user has already done one or the other. This is also done to update the values once the page loads or the question has been liked/disliked.
-``Axios.get('http://localhost:5002/api/like_get_all/')``
-`.then((res) => {`
-`    // --Set the likes to a variable to see which questions this user has liked. `
-`    // --This prevents the same person from liking the same post more than once.`
-`    let questions = res.data;`
-`    // --Call session storage once to ensure it is never lagging behind.`
-`    // --Set a variable to the ID of the logged in user.`
-`    let USER = Id;`
-`    // --Used to test if the user has been found`
-`    let bFound = false;`
-`    let questionType = "";`
-`    let likeID = "";`
-`    // --Run through the array of liked posts to see which posts this user has liked.`
-`    for (let k = 0; k < questions.length; k++) {`
-`    // ---If the user has been found`
-`        if (USER === questions[k].userID) {`
-`            // ----If the user liked this specific question`
-`            if (questionID === questions[k].questionID) {`
-`                bFound = true;`
-`                questionType = questions[k].type;`
-`                likeID = questions[k]._id;`
-`}}}`
+```js
+Axios.get('http://localhost:5002/api/like_get_all/')
+.then((res) => {
+    // --Set the likes to a variable to see which questions this user has liked. 
+    // --This prevents the same person from liking the same post more than once.
+    let questions = res.data;
+    // --Call session storage once to ensure it is never lagging behind.
+    // --Set a variable to the ID of the logged in user.
+    let USER = Id;
+    // --Used to test if the user has been found
+    let bFound = false;
+    let questionType = "";
+    let likeID = "";
+    // --Run through the array of liked posts to see which posts this user has liked.
+    for (let k = 0; k < questions.length; k++) {
+    // ---If the user has been found
+        if (USER === questions[k].userID) {
+            // ----If the user liked this specific question
+            if (questionID === questions[k].questionID) {
+                bFound = true;
+                questionType = questions[k].type;
+                likeID = questions[k]._id;
+}}}
+```
 * When the like or dislike button is clicked, do one of the following depending on if the user has not done either yet, has only done one, or has only done the other.
-`// If the user HASN'T liked this post yet`
-`if (bFound === false) {`
-`    // Increase likes by 1`
-`    addLike(1);`
-`    // Axios post to add another like to the database`
-`    let url = "http://localhost:5002/api/like_add/";`
-`    let data = {`
-`        userID: USER,`
-`        questionID: questionID,`
-`        type: "like"`
-`    }`
-`    Axios.post(url, data);`
-`    document.getElementById("btnLike").style.color = 'gray';`
-`    } else if (bFound === true && questionType === "like") {`
-`        // If the user has already liked the post, delete the entry`
-`        // Build the url and the data`
-`        let url = "http://localhost:5002/api/like_delete/" + likeID;`
-`        // Delete the entry to unlike the post`
-`        Axios.delete(url).catch("Error deleting");`
-`        // Decrease likes with one`
-`        addLike(-1);`
-`        // Set the button to gray to discourage like spamming`
-`        document.getElementById("btnLike").style.color = 'gray';`
-`    } else if (bFound === true && questionType === 'dislike') {`
-`    // if the user changes from a dislike to a like`
-`        try {`
-`        // Build the url and the data`
-`        let url = "http://localhost:5002/api/like_update/" + likeID;`
-`        let updata = {`
-`            userID: USER,`
-`            questionID: questionID,`
-`            type: "like"`
-`        }`
-`        // Update the db with the new like`
-`        Axios.put(url, updata).catch(console.log("Axios error"));`
-`        addLike(1);`
-`        addDislike(-1);`
-`        document.getElementById("btnLike").style.color = 'gray';`
+```js
+// If the user HASN'T liked this post yet
+if (bFound === false) {
+    // Increase likes by 1
+    addLike(1);
+    // Axios post to add another like to the database
+    let url = "http://localhost:5002/api/like_add/";
+    let data = {
+        userID: USER,
+        questionID: questionID,
+        type: "like"
+    };
+    Axios.post(url, data);
+    document.getElementById("btnLike").style.color = 'gray';
+} else if (bFound === true && questionType === "like") {
+    // If the user has already liked the post, delete the entry
+    // Build the url and the data
+    let url = "http://localhost:5002/api/like_delete/" + likeID;
+    // Delete the entry to unlike the post
+    Axios.delete(url).catch("Error deleting");
+    // Decrease likes with one
+    addLike(-1);
+    // Set the button to gray to discourage like spamming
+    document.getElementById("btnLike").style.color = 'gray';
+} else if (bFound === true && questionType === 'dislike') {
+    // if the user changes from a dislike to a like
+    try {
+        // Build the url and the data
+        let url = "http://localhost:5002/api/like_update/" + likeID;
+        let updata = {
+            userID: USER,
+            questionID: questionID,
+            type: "like"
+        };
+        // Update the db with the new like
+        Axios.put(url, updata).catch(console.log("Axios error"));
+        addLike(1);
+        addDislike(-1);
+        document.getElementById("btnLike").style.color = 'gray';
+    }
+}
+```
 
 8. Show Questions on the Home Page
 * Using a `.map()` function, the questions are populated form the database. Using a `axios.get` call, the data is gathered form the database to be sent.
-`Axios.get(axiosCall)`
-`.then(res => {`
-`    setLoadedEntries(0);`
-`    let renderQuestions = res.data.map((item) =>`
-`        <HomeQuestionCard key={item._id} id={item._id} user={item.user} title={item.title} text={item.text} date={item.date} comments={item.comments} image={item.image} />);`
-`    setSearchR(renderQuestions);`
+```js
+Axios.get(axiosCall)
+.then(res => {
+    setLoadedEntries(0);
+    let renderQuestions = res.data.map((item) =>
+        <HomeQuestionCard key={item._id} id={item._id} user={item.user} title={item.title} text={item.text} date={item.date} comments={item.comments} image={item.image} />);
+    setSearchR(renderQuestions);
+```
 
 9. Search Through Questions
 * Through the questions.js route (from the HomePage.js page), the entered words are sent as a parameter to find matches from all titles in the database
-`const handleSearch = () => {`
-`    if (searcher === '') {`
-`        setAxiosCall('http://localhost:5002/api/question_get_all/');`
-`    } else {`
-`        setAxiosCall('http://localhost:5002/api/searchquestion/' + searcher);`
-`}}`
+```js
+const handleSearch = () => {
+    if (searcher === '') {
+        setAxiosCall('http://localhost:5002/api/question_get_all/');
+    } else {
+        setAxiosCall('http://localhost:5002/api/searchquestion/' + searcher);
+}}
+```
+
 * Inside the questions.js route, a `.find` function is called to find the matching text. Then in the response, the matching questions are returned to the client side.
-`router.get('/api/searchquestion/:search', async (req, res) => {`
-`    try {`
-`        const searchTerm = req.params.search;`
-`        const questions = await QuestionSchema.find({`
-`            $or: [`
-`                { title: new RegExp(searchTerm, 'i') },`
-`                { text: new RegExp(searchTerm, 'i') }`
-`]});`
-`    res.json(questions)`
+```js
+router.get('/api/searchquestion/:search', async (req, res) => {
+    try {
+        const searchTerm = req.params.search;
+        const questions = await QuestionSchema.find({
+            $or: [
+                { title: new RegExp(searchTerm, 'i') },
+                { text: new RegExp(searchTerm, 'i') }
+]});
+    res.json(questions)
+```
 
 10.  Question Images
 * The imageURL is set to a usestate, where it accesses image sin the public folder of the website's server.
@@ -390,18 +423,20 @@ try {
 
 11.   Administrator Rights
 * First, the Administrator emails are tested against the supplied email, and if it is found that the user is an admin, the relevant `SessionStorage` item will be set.
-`try {`
-`    const url = 'http://localhost:5002/api/auth'`
-`    const { data: res } = await axios.post(url, data);`
-`    sessionStorage.setItem("token", res.data);`
-`    sessionStorage.setItem("useremail", data.email);`
-`    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {`
-`        sessionStorage.setItem('Admin', true);`
-`    } else {`
-`        sessionStorage.setItem('Admin', false);`
-`    }`
-`    window.location = '/Home';`
-`} catch (error) {`
+```js
+try {
+    const url = 'http://localhost:5002/api/auth'
+    const { data: res } = await axios.post(url, data);
+    sessionStorage.setItem("token", res.data);
+    sessionStorage.setItem("useremail", data.email);
+    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {
+        sessionStorage.setItem('Admin', true);
+    } else {
+        sessionStorage.setItem('Admin', false);
+    }
+    window.location = '/Home';
+} catch (error) {
+```
 * The Administrator can see additional buttons on each of the pages which gives them further functionality.
 `{dispDel ? <Button variant="contained" sx={{ margin: "auto" }} id="btnDelete" onClick={handleDelete}><BiXCircle />Delete</Button> : null}`
 
