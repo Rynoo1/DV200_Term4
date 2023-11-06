@@ -455,6 +455,10 @@ Question Editor Page
 
 <!-- Final Outcome -->
 ## Final Outcome
+* Heroku Deployment
+  https://opendevryno-7bf78ce85d24.herokuapp.com/Home
+*Firebase Deployment
+  https://opendevryno.web.app/
 <!-- MOCKUPS -->
 ### Mockups
 <img src="/final/mockups/Hero.png" alt="Mockup" style="height: 600px"/>
