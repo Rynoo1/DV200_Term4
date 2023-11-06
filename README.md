@@ -457,7 +457,7 @@ Question Editor Page
 ## Final Outcome
 * Heroku Deployment
   https://opendevryno-7bf78ce85d24.herokuapp.com/Home
-*Firebase Deployment
+* Firebase Deployment
   https://opendevryno.web.app/
 <!-- MOCKUPS -->
 ### Mockups
