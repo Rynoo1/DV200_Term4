@@ -158,18 +158,20 @@ The following installations are required if you do not clone the repository:
 ## Features and Functionality
 1. Log in and Authenticate users
 * UseStates are connected to an OnUpdate event, which update each time an `<input>` is changed. These values are sent to the server using an `axios.post` call, specifically the auth.js route, where it is authenticated. After the data is validated, a JWT is generated for additional safety.
-`try {`
-`    const url = 'http://localhost:5002/api/auth'`
-`    const { data: res } = await axios.post(url, data);`
-`    sessionStorage.setItem("token", res.data);`
-`    sessionStorage.setItem("useremail", data.email);`
-`    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {`
-`        sessionStorage.setItem('Admin', true);`
-`    } else {`
-`        sessionStorage.setItem('Admin', false);`
-`    }`
-`    window.location = '/Home';`
-`} catch (error) {`
+```
+try {
+`    const url = 'http://localhost:5002/api/auth'
+`    const { data: res } = await axios.post(url, data);
+`    sessionStorage.setItem("token", res.data);
+`    sessionStorage.setItem("useremail", data.email);
+`    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {
+`        sessionStorage.setItem('Admin', true);
+`    } else {
+`        sessionStorage.setItem('Admin', false);
+`    }
+`    window.location = '/Home';
+} catch (error) {
+```
 
 2. Register Users
 * If a user signs up, and their data is validated, they will be taken to the SignIn.js page. The data is validated in the same manner as the sign in functionality, and the data is saved to the database with an `axios.post` call.
