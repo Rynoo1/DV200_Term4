@@ -160,16 +160,16 @@ The following installations are required if you do not clone the repository:
 * UseStates are connected to an OnUpdate event, which update each time an `<input>` is changed. These values are sent to the server using an `axios.post` call, specifically the auth.js route, where it is authenticated. After the data is validated, a JWT is generated for additional safety.
 ```
 try {
-`    const url = 'http://localhost:5002/api/auth'
-`    const { data: res } = await axios.post(url, data);
-`    sessionStorage.setItem("token", res.data);
-`    sessionStorage.setItem("useremail", data.email);
-`    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {
-`        sessionStorage.setItem('Admin', true);
-`    } else {
-`        sessionStorage.setItem('Admin', false);
-`    }
-`    window.location = '/Home';
+    const url = 'http://localhost:5002/api/auth'
+    const { data: res } = await axios.post(url, data);
+    sessionStorage.setItem("token", res.data);
+    sessionStorage.setItem("useremail", data.email);
+    if (data.email === 'Nico@gmail.com' || data.email === 'wetso@gmail.com' || data.email === 'ryno@gmail.com') {
+        sessionStorage.setItem('Admin', true);
+    } else {
+        sessionStorage.setItem('Admin', false);
+    }
+    window.location = '/Home';
 } catch (error) {
 ```
 
