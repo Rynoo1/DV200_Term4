@@ -158,7 +158,7 @@ The following installations are required if you do not clone the repository:
 ## Features and Functionality
 1. Log in and Authenticate users
 * UseStates are connected to an OnUpdate event, which update each time an `<input>` is changed. These values are sent to the server using an `axios.post` call, specifically the auth.js route, where it is authenticated. After the data is validated, a JWT is generated for additional safety.
-```
+```js
 try {
     const url = 'http://localhost:5002/api/auth'
     const { data: res } = await axios.post(url, data);
