@@ -42,7 +42,7 @@ function QuestionEditor() {
         let usermail = sessionStorage.getItem('useremail');
 
         try {
-            Axios.get("https://opendevweb-51212536012a.herokuapp.com/api/GetUserID/" + usermail)
+            Axios.get("https://opendevryno-7bf78ce85d24.herokuapp.com/api/GetUserID/" + usermail)
                 .then((res) => {
                     const response = res;
                     setId(response.data[0]._id);
@@ -99,7 +99,7 @@ function QuestionEditor() {
             payload.append('data', JSON.stringify(data));
             payload.append('image', Image);
 
-            Axios.post('https://opendevweb-51212536012a.herokuapp.com/api/addquestion', payload)
+            Axios.post('https://opendevryno-7bf78ce85d24.herokuapp.com/api/addquestion', payload)
                 .then(
                     (response) => {
                         console.log(response);        

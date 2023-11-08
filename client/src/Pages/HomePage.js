@@ -28,7 +28,7 @@ function HomePage() {
 
     const [searchParams, setSearchParams] = useSearchParams({ search: '' })
     const searcher = searchParams.get('search')
-    const [axiosCall, setAxiosCall] = useState('https://opendevweb-51212536012a.herokuapp.com/api/question_get_all');
+    const [axiosCall, setAxiosCall] = useState('https://opendevryno-7bf78ce85d24.herokuapp.com/api/question_get_all');
     const [page, setPage] = useState(1);
     const [loadedEntries, setLoadedEntries] = useState(0);
     const [totalEntries, setTotalEntries] = useState();
@@ -37,7 +37,7 @@ function HomePage() {
     const [searchR, setSearchR] = useState();
 
     useEffect(() => {
-        if (axiosCall.startsWith('https://opendevweb-51212536012a.herokuapp.com/api/question_get_all')) {
+        if (axiosCall.startsWith('https://opendevryno-7bf78ce85d24.herokuapp.com/api/question_get_all')) {
             Axios.get(axiosCall)
                 .then(res => {
                     const { entries, totalEntries } = res.data;
@@ -89,9 +89,9 @@ function HomePage() {
 
     const handleSearch = () => {
         if (searcher === '') {
-            setAxiosCall('https://opendevweb-51212536012a.herokuapp.com/api/question_get_all');
+            setAxiosCall('https://opendevryno-7bf78ce85d24.herokuapp.com/api/question_get_all');
         } else {
-            setAxiosCall('https://opendevweb-51212536012a.herokuapp.com/api/searchquestion/' + searcher);
+            setAxiosCall('https://opendevryno-7bf78ce85d24.herokuapp.com/api/searchquestion/' + searcher);
         }
     }
 
@@ -103,9 +103,9 @@ function HomePage() {
         console.log('clicked');
         if (newLoaded >= totalEntries) {
             setloadMoreS(false);
-            setAxiosCall(`https://opendevweb-51212536012a.herokuapp.com/api/question_get_all/?page=${nextpage}`);
+            setAxiosCall(`https://opendevryno-7bf78ce85d24.herokuapp.com/api/question_get_all/?page=${nextpage}`);
         } else {
-            setAxiosCall(`https://opendevweb-51212536012a.herokuapp.com/api/question_get_all/?page=${nextpage}`);
+            setAxiosCall(`https://opendevryno-7bf78ce85d24.herokuapp.com/api/question_get_all/?page=${nextpage}`);
         }
     }
 

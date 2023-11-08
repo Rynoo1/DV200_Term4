@@ -59,7 +59,7 @@ function Profile() {
     useEffect(() => {
         console.log(userID)
 
-        axios.get('https://opendevweb-51212536012a.herokuapp.com/api/userquestions/' + userID)
+        axios.get('https://opendevryno-7bf78ce85d24.herokuapp.com/api/userquestions/' + userID)
             .then((result) => {
                 const data = result.data;
                 console.log(data)
@@ -80,7 +80,7 @@ function Profile() {
         const fetchData = async () => {
             console.log('fetch');
             try {
-                const userResponse = await axios.get('https://opendevweb-51212536012a.herokuapp.com/api/getUser/' + userID);
+                const userResponse = await axios.get('https://opendevryno-7bf78ce85d24.herokuapp.com/api/getUser/' + userID);
                 console.log(userResponse.data.email);
                 let info = userResponse.data;
                 setProfile(<ProfileCard username={info.username} id={info._id} image={info.image} />);
@@ -110,7 +110,7 @@ function Profile() {
         updateUser.append('details', JSON.stringify(details));
         updateUser.append('imageUp', image);
 
-        axios.put('https://opendevweb-51212536012a.herokuapp.com/api/updateuser/' + userID, updateUser)
+        axios.put('https://opendevryno-7bf78ce85d24.herokuapp.com/api/updateuser/' + userID, updateUser)
             .then(() => {
                 document.getElementById("default").style.display = 'block';
                 document.getElementById("update-user-profile").style.display = 'none';

@@ -22,7 +22,7 @@ const HomeQuestionCard = ({ user, title, date, text, id }) => {
 
     // Get specific user
     useEffect(() => {
-        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/getUser/' + user)
+        Axios.get('https://opendevryno-7bf78ce85d24.herokuapp.com/api/getUser/' + user)
             .then((res) => {
                 console.log(res);
             })

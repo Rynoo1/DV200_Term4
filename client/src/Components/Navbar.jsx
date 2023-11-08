@@ -35,7 +35,7 @@ const Navbar = () => {
         const fetchUserId = async () => {
             let usermail = sessionStorage.getItem('useremail');
             try {
-                const response = await axios.get("https://opendevweb-51212536012a.herokuapp.com/api/GetUserID/" + usermail); 
+                const response = await axios.get("https://opendevryno-7bf78ce85d24.herokuapp.com/api/GetUserID/" + usermail); 
                 console.log(response.data[0]._id);
                 setId(response.data[0]._id);
             } catch (error) {

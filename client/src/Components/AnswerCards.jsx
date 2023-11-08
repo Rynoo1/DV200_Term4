@@ -24,11 +24,11 @@ const AnswerCards = (props) => {
 
     useEffect(() => {
         console.log('answer user ' + props.user)
-        Axios.get('https://opendevweb-51212536012a.herokuapp.com/api/getUser/' + props.user)
+        Axios.get('https://opendevryno-7bf78ce85d24.herokuapp.com/api/getUser/' + props.user)
             .then(res => {
                 setUsername(res.data.username);
                 console.log(res.data);
-                const serverURL = 'https://opendevweb-51212536012a.herokuapp.com/userimages';
+                const serverURL = 'https://opendevryno-7bf78ce85d24.herokuapp.com/userimages';
                 setImage(`${serverURL}/${res.data.image}`)
                 console.log(image);
             })
