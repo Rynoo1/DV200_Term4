@@ -490,9 +490,10 @@ Question Editor Page
 
 <!-- Final Outcome -->
 ## Final Outcome
-* Heroku Deployment
-  https://opendevryno-7bf78ce85d24.herokuapp.com/Home
-* Firebase Deployment
+* [Demo Video](https://drive.google.com/file/d/1e4yL4FDkk4yu-tQIxt0ynX9bcTwXzkCl/view?usp=sharing)
+* Heroku Deployment:
+  https://opendevryno-7bf78ce85d24.herokuapp.com
+* Firebase Deployment:
   https://opendevryno.web.app/
 <!-- MOCKUPS -->
 ### Mockups
